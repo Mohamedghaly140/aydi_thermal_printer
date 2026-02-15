@@ -37,7 +37,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    namespace 'id.kakzaki.blue_thermal_printer'
+    namespace 'com.example.thermal_printer'
     compileSdkVersion 35
 
     compileOptions {
