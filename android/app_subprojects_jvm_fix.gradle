@@ -1,20 +1,23 @@
-// Add this block inside the root android/build.gradle of the APP that uses
-// thermal_printer, blue_thermal_printer, and bluetooth_thermal_printer.
-// Place it after allprojects { } and before any apply plugin lines (or merge
-// into an existing subprojects { } block).
+// IMPORTANT: This must be in the APP's root android/build.gradle (the one that
+// lists allprojects/subprojects), NOT in android/app/build.gradle and NOT in
+// the thermal_printer plugin's build.gradle. Copy the subprojects { } block below
+// into your app's android/build.gradle (after allprojects { }, merge into any
+// existing subprojects { } you have).
 //
-// This forces all plugin modules to use Java 17, Kotlin JVM target 17, and
-// compileSdkVersion 30+, fixing:
-// - "Inconsistent JVM-target compatibility detected..."
+// Forces all plugin modules (e.g. bluetooth_thermal_printer) to use
+// compileSdkVersion 30+, Java 17, and Kotlin JVM 17. Fixes:
 // - "In order to compile Java 9+ source, please set compileSdkVersion to 30 or above"
+// - "Inconsistent JVM-target compatibility detected..."
 
 subprojects { subproject ->
     subproject.afterEvaluate {
         if (subproject.plugins.hasPlugin("com.android.library")) {
-            subproject.android.compileSdkVersion 30
-            subproject.android.compileOptions {
-                sourceCompatibility JavaVersion.VERSION_17
-                targetCompatibility JavaVersion.VERSION_17
+            subproject.android {
+                compileSdkVersion 30
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_17
+                    targetCompatibility JavaVersion.VERSION_17
+                }
             }
             subproject.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
                 kotlinOptions {
