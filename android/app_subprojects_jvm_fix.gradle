@@ -3,13 +3,15 @@
 // Place it after allprojects { } and before any apply plugin lines (or merge
 // into an existing subprojects { } block).
 //
-// This forces all plugin modules to use Java 17 and Kotlin JVM target 17,
-// fixing: "Inconsistent JVM-target compatibility detected for tasks
-// 'compileDebugJavaWithJavac' (1.8) and 'compileDebugKotlin' (21)"
+// This forces all plugin modules to use Java 17, Kotlin JVM target 17, and
+// compileSdkVersion 30+, fixing:
+// - "Inconsistent JVM-target compatibility detected..."
+// - "In order to compile Java 9+ source, please set compileSdkVersion to 30 or above"
 
 subprojects { subproject ->
     subproject.afterEvaluate {
         if (subproject.plugins.hasPlugin("com.android.library")) {
+            subproject.android.compileSdkVersion 30
             subproject.android.compileOptions {
                 sourceCompatibility JavaVersion.VERSION_17
                 targetCompatibility JavaVersion.VERSION_17
