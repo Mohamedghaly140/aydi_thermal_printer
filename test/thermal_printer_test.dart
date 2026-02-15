@@ -10,6 +10,18 @@ class MockThermalPrinterPlatform
 
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
+
+  @override
+  Future<List<String>> scanBluetoothDevices() => Future.value([]);
+
+  @override
+  Future<bool> connectToDevice(String deviceId) => Future.value(true);
+
+  @override
+  Future<void> sendEPL2Command(String command) => Future.value();
+
+  @override
+  Future<String?> getDeviceIdByName(String deviceName) => Future.value(null);
 }
 
 void main() {
