@@ -21,6 +21,18 @@ allprojects {
     }
 }
 
+subprojects { subproject ->
+    subproject.afterEvaluate {
+        if (subproject.plugins.hasPlugin("com.android.library")) {
+            if (subproject.name == 'blue_thermal_printer') {
+                subproject.android.namespace = 'id.kakzaki.blue_thermal_printer'
+            } else if (subproject.name == 'bluetooth_thermal_printer') {
+                subproject.android.namespace = 'com.peoplewareinnovations.bluetooth_thermal_printer'
+            }
+        }
+    }
+}
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
